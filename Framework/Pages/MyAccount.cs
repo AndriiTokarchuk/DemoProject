@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Collections.Generic;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
@@ -8,7 +7,7 @@ namespace Framework
 {
     public class MyAccount
     {
-        [FindsBy(How = How.XPath, Using = "//a[@class='dark go-right']")]
+        [FindsBy(How = How.CssSelector, Using = "a.dark.go-right")]
         private IList<IWebElement> hotelsList;
 
         public void Goto()

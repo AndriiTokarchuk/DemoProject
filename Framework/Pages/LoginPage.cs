@@ -6,22 +6,26 @@ namespace Framework
 {
     public class LoginPage
     {
-        [FindsBy(How = How.XPath, Using = "//input[@placeholder='Email']")]
+        [FindsBy(How = How.Name, Using = "username")]
         private IWebElement emailTextField;
 
-        [FindsBy(How = How.XPath, Using = "//input[@placeholder='Password']")]
+        [FindsBy(How = How.Name, Using = "password")]
         private IWebElement passwordTextField;
 
-        [FindsBy(How = How.XPath, Using = "//button[@class='btn btn-action btn-lg btn-block loginbtn']")]
+        [FindsBy(How = How.CssSelector, Using = "button.btn.btn-action.btn-lg.btn-block.loginbtn")]
         private IWebElement loginButton;
 
         public void Goto()
         {
             Pages.TopNavigation.Login();
         }
-
+        
         public void LoginUnderUser(string email, string password)
         {
+            if (emailTextField.Exists())
+            {
+                Browser.Driver.WaitForElement(By.Name("username"));
+            }
             emailTextField.SendKeys(email);
             passwordTextField.SendKeys(password);
             this.loginButton.Click();

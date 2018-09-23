@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 
@@ -35,11 +34,11 @@ namespace Framework
             return allText;
         }
 
-        public static IWebElement FindElement(this IWebDriver driver, By by, int timeoutInSeconds)
+        public static IWebElement WaitForElement(this ISearchContext driver, By by, int timeoutInSeconds = 5)
         {
             if (timeoutInSeconds > 0)
             {
-                var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeoutInSeconds));
+                var wait = new WebDriverWait((IWebDriver)driver, TimeSpan.FromSeconds(timeoutInSeconds));
                 return wait.Until(drv => drv.FindElement(by));
             }
             return driver.FindElement(by);
