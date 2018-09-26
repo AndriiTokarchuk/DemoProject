@@ -34,12 +34,20 @@ namespace Framework
             return allText;
         }
 
-        public static IWebElement WaitForElement(this ISearchContext driver, By by, int timeoutInSeconds = 5)
+        public static IWebElement FindElement(this ISearchContext driver, By by, int timeoutInSeconds = 10)
         {
             if (timeoutInSeconds > 0)
             {
                 var wait = new WebDriverWait((IWebDriver)driver, TimeSpan.FromSeconds(timeoutInSeconds));
-                return wait.Until(drv => drv.FindElement(by));
+                wait.IgnoreExceptionTypes(typeof(NoSuchElementException), typeof(ElementNotVisibleException));
+                try
+                {
+                    return wait.Until(drv => drv.FindElement(by));
+                }
+                catch (WebDriverTimeoutException)
+                {
+                    return null;
+                }
             }
             return driver.FindElement(by);
         }

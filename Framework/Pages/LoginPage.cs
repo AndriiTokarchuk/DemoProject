@@ -22,9 +22,9 @@ namespace Framework
         
         public void LoginUnderUser(string email, string password)
         {
-            if (emailTextField.Exists())
+            if (emailTextField.Enabled)
             {
-                Browser.Driver.WaitForElement(By.Name("username"));
+                Extensions.FindElement(Browser.Driver, By.Name("username"));
             }
             emailTextField.SendKeys(email);
             passwordTextField.SendKeys(password);
@@ -33,13 +33,14 @@ namespace Framework
 
         public bool IsLoggedUnderUser(string firstName, string lastName)
         {
-            IWebElement greetingsText = Browser.Driver.FindElement(By.XPath(String.Format("//*[contains(text(),'Hi, {0} {1}')]", firstName, lastName)));
-            if (greetingsText.Exists())
+            var greetingsText = Extensions.FindElement(Browser.Driver, By.XPath(String.Format("//*[contains(text(),'Hi, {0} {1}')]", firstName, lastName)));
+            if (greetingsText == null)
             {
-                return true;
+                return false;
             }
-            return false;
+            return true;
         }
+
 
         public bool IsAt()
         {
