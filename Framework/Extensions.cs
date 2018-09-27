@@ -46,6 +46,9 @@ namespace Framework
                 }
                 catch (WebDriverTimeoutException)
                 {
+                    //TODO 
+                    //Message in the following using logger
+                    //Logger.Error("In class: {class name} - {<elements name> {<finder type>}} is not found")
                     return null;
                 }
             }
